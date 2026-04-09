@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Branches — A Social Dating Experiment</title>
+<meta name="description" content="Branches is a voice-first dating experience where you fall for someone before you ever see their face. Built for military, veterans, and people ready for something real.">
+<meta property="og:title" content="Branches — A Social Dating Experiment">
+<meta property="og:description" content="What if you could fall in love with someone's soul before you ever saw their face?">
+<meta property="og:type" content="website">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Nunito+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --cream:#FDFAF6;--warm:#FFF8F0;--sand:#F3ECE2;
+  --terra:#C4704B;--terra-dk:#A8593A;--terra-glow:rgba(196,112,75,0.12);--terra-soft:rgba(196,112,75,0.06);
+  --sage:#5B7B5E;--sage-soft:rgba(91,123,94,0.08);--sage-border:rgba(91,123,94,0.15);
+  --gold:#B8965A;
+  --text:#2A2A2A;--text2:#5C5C5C;--text3:#8A8A8A;--text4:#B0B0B0;
+  --border:rgba(0,0,0,0.06);--border2:rgba(0,0,0,0.1);
+  --ok:#4A8C5E;--err:#C4504B;
+  --serif:'Lora',Georgia,serif;
+  --sans:'Nunito Sans',-apple-system,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--text);background:var(--cream);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+/* ══ HEADER ══ */
+header{padding:1.5rem 2.5rem;display:flex;justify-content:center;align-items:center}
+.logo{font-family:var(--serif);font-size:1.6rem;font-weight:400;letter-spacing:.03em;color:var(--text)}
+.logo strong{font-weight:700;color:var(--terra)}
+.logo-sub{font-family:var(--sans);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text3);text-align:center;display:block;margin-top:2px;font-weight:500}
+
+/* ══ HERO ══ */
+.hero{padding:4rem 2rem 5rem;text-align:center;max-width:680px;margin:0 auto}
+.hero-eyebrow{font-family:var(--sans);font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--sage);font-weight:600;margin-bottom:1.5rem;opacity:0;animation:up .7s ease .15s forwards}
+h1{font-family:var(--serif);font-size:clamp(2.2rem,5vw,3.4rem);font-weight:400;line-height:1.2;color:var(--text);margin-bottom:1.2rem;opacity:0;animation:up .8s ease .3s forwards}
+h1 em{font-style:italic;color:var(--terra)}
+.hero-body{font-size:clamp(.95rem,1.5vw,1.1rem);color:var(--text2);line-height:1.8;max-width:520px;margin:0 auto 2rem;font-weight:300;opacity:0;animation:up .8s ease .45s forwards}
+.hero-cta{opacity:0;animation:up .8s ease .6s forwards}
+.hero-cta a{display:inline-block;padding:.95rem 2.4rem;border-radius:100px;background:var(--terra);color:#fff;text-decoration:none;font-family:var(--sans);font-size:.9rem;font-weight:600;letter-spacing:.03em;transition:all .3s;box-shadow:0 4px 20px var(--terra-glow)}
+.hero-cta a:hover{background:var(--terra-dk);transform:translateY(-2px);box-shadow:0 8px 30px rgba(196,112,75,.2)}
+.hero-note{font-size:.72rem;color:var(--text4);margin-top:1rem;opacity:0;animation:up .7s ease .75s forwards}
+@keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══ VISUAL BREAK ══ */
+.branch-divider{text-align:center;padding:1rem 0;font-size:1.4rem;color:var(--sand);letter-spacing:1rem;user-select:none}
+
+/* ══ SECTIONS ══ */
+.sec{padding:4.5rem 2rem;max-width:760px;margin:0 auto}
+.sec-full{padding:4.5rem 2rem;background:var(--warm)}
+.sec-full .sec-inner{max-width:760px;margin:0 auto}
+.eyebrow{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);font-weight:600;margin-bottom:.5rem}
+.sec-title{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.2rem);font-weight:400;color:var(--text);margin-bottom:.6rem;line-height:1.25}
+.sec-title em{font-style:italic;color:var(--terra)}
+.sec-body{font-size:.92rem;color:var(--text2);line-height:1.75;max-width:520px;font-weight:300}
+.sec-body.centered{margin:0 auto;text-align:center}
+
+/* ══ THE EXPERIENCE ══ */
+.exp{margin-top:2.5rem}
+.exp-step{display:flex;gap:1.5rem;margin-bottom:2.2rem;align-items:flex-start}
+.exp-num{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--serif);font-size:1rem;font-weight:600;color:var(--terra)}
+.exp-content h3{font-family:var(--serif);font-size:1.05rem;font-weight:500;color:var(--text);margin-bottom:.3rem}
+.exp-content p{font-size:.85rem;color:var(--text2);line-height:1.7;font-weight:300}
+
+/* ══ TRUST BADGES ══ */
+.trust{display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem;margin-top:2.5rem}
+.trust-item{display:flex;align-items:center;gap:.5rem;font-size:.82rem;color:var(--text2);font-weight:400}
+.trust-item span{font-size:1.1rem}
+
+/* ══ PRICING ══ */
+.price-card{max-width:380px;margin:2.5rem auto 0;padding:2.2rem 2rem;border-radius:16px;background:var(--cream);border:1px solid var(--border);text-align:center}
+.price-free{font-family:var(--serif);font-size:1.6rem;color:var(--ok);margin-bottom:.2rem}
+.price-desc{font-size:.82rem;color:var(--text3);margin-bottom:1.2rem}
+.price-divider{height:1px;background:var(--border);margin:0 auto 1.2rem;width:60%}
+.price-row{display:flex;align-items:baseline;justify-content:center;gap:.25rem;margin-bottom:.15rem}
+.price-amt{font-family:var(--serif);font-size:2rem;font-weight:600;color:var(--text)}
+.price-per{font-size:.82rem;color:var(--text3)}
+.price-when{font-size:.75rem;color:var(--text3);margin-bottom:1.2rem}
+.price-list{text-align:left;max-width:260px;margin:0 auto}
+.pl{display:flex;gap:.5rem;margin-bottom:.45rem;font-size:.8rem;color:var(--text2);line-height:1.5}
+.pl span{color:var(--ok);flex-shrink:0}
+
+/* ══ AUDIENCE ══ */
+.audience-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:.45rem;margin-top:1.5rem}
+.atag{padding:.45rem 1rem;border-radius:100px;font-size:.75rem;font-weight:500;background:var(--cream);border:1px solid var(--border);color:var(--text2)}
+
+/* ══ FORM ══ */
+.form-sec{padding:5rem 2rem;text-align:center}
+.form-inner{max-width:440px;margin:0 auto}
+.form-inner form{display:flex;flex-direction:column;gap:.6rem;margin-top:1.8rem;text-align:left}
+.form-inner .row{display:flex;gap:.6rem}
+.form-inner .row>*{flex:1;min-width:0}
+.form-inner label{font-size:.72rem;font-weight:600;color:var(--text3);letter-spacing:.04em;margin-bottom:.15rem;display:block}
+.form-inner input,.form-inner select{
+  padding:.85rem 1.2rem;border:1.5px solid var(--border2);border-radius:10px;
+  background:#fff;font-family:var(--sans);font-size:.88rem;color:var(--text);
+  outline:none;transition:all .3s;width:100%;-webkit-appearance:none;appearance:none;
+}
+.form-inner select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer;
+}
+.form-inner input::placeholder{color:var(--text4);font-weight:300}
+.form-inner select option{color:var(--text)}
+.form-inner input:focus,.form-inner select:focus{border-color:var(--terra);box-shadow:0 0 0 3px var(--terra-glow)}
+.form-inner input.bad,.form-inner select.bad{border-color:var(--err)}
+.form-inner button{
+  padding:.95rem 2rem;border:none;border-radius:10px;margin-top:.4rem;
+  background:var(--terra);color:#fff;cursor:pointer;
+  font-family:var(--sans);font-size:.9rem;font-weight:600;letter-spacing:.03em;
+  transition:all .3s;box-shadow:0 4px 16px var(--terra-glow);
+}
+.form-inner button:hover{background:var(--terra-dk);transform:translateY(-1px);box-shadow:0 6px 24px rgba(196,112,75,.2)}
+.form-inner button:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+.f-err{font-size:.75rem;color:var(--err);margin-top:.3rem;display:none;text-align:center}
+.f-note{font-size:.65rem;color:var(--text4);margin-top:.8rem;text-align:center}
+
+/* ══ CONFIRMATION / THANK YOU SCREEN ══ */
+.ty-screen{display:none;text-align:center;padding:2rem 0}
+.ty-screen.show{display:block;animation:fadeScale .6s ease forwards}
+@keyframes fadeScale{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+.ty-check{width:72px;height:72px;border-radius:50%;background:rgba(74,140,94,.08);border:2px solid var(--ok);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem}
+.ty-check svg{width:32px;height:32px;stroke:var(--ok);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.ty-check svg path{stroke-dasharray:30;stroke-dashoffset:30;animation:drawCheck .5s ease .3s forwards}
+@keyframes drawCheck{to{stroke-dashoffset:0}}
+.ty-screen h2{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2rem);font-weight:500;color:var(--text);margin-bottom:.5rem}
+.ty-screen h2 em{font-style:italic;color:var(--terra)}
+.ty-screen .ty-name{color:var(--terra);font-weight:600}
+.ty-body{font-size:.92rem;color:var(--text2);line-height:1.75;max-width:400px;margin:0 auto 2rem;font-weight:300}
+.ty-steps{text-align:left;max-width:360px;margin:0 auto 2rem;background:var(--warm);border-radius:14px;padding:1.5rem 1.8rem}
+.ty-steps h4{font-family:var(--serif);font-size:.9rem;font-weight:600;color:var(--text);margin-bottom:.8rem}
+.ty-step{display:flex;gap:.6rem;align-items:flex-start;margin-bottom:.6rem}
+.ty-step .ty-num{width:22px;height:22px;border-radius:50%;background:var(--terra-soft);color:var(--terra);font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ty-step p{font-size:.82rem;color:var(--text2);line-height:1.5}
+.ty-footer{font-size:.78rem;color:var(--text3);line-height:1.6}
+.ty-footer strong{color:var(--text2)}
+.hp{position:absolute;left:-9999px;opacity:0;height:0;width:0;overflow:hidden}
+
+/* ══ FOOTER ══ */
+footer{padding:3rem 2rem 2rem;text-align:center;border-top:1px solid var(--border)}
+.f-logo{font-family:var(--serif);font-size:1.1rem;color:var(--text);margin-bottom:.15rem}
+.f-logo strong{font-weight:700;color:var(--terra)}
+.f-sub{font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text4);margin-bottom:1rem}
+.f-copy{font-size:.62rem;color:var(--text4)}
+.f-copy a{color:var(--terra);text-decoration:none}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:640px){
+  header{padding:1.2rem 1.5rem}
+  .hero{padding:2.5rem 1.5rem 3.5rem}
+  .sec,.form-sec{padding:3rem 1.5rem}
+  .sec-full{padding:3rem 1.5rem}
+  .form-inner .row{flex-direction:column}
+  .exp-step{gap:1rem}
+  .exp-num{width:36px;height:36px;font-size:.85rem}
+  .trust{gap:.8rem}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div>
+    <div class="logo">Branch<strong>e</strong>s</div>
+    <span class="logo-sub">A social dating experiment</span>
+  </div>
+</header>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero">
+  <p class="hero-eyebrow">For military, veterans &amp; those who serve</p>
+
+  <h1>What if you fell in love with someone's <em>soul</em> before you ever saw their face?</h1>
+
+  <p class="hero-body">Branches is a different kind of dating. You'll connect through voice, conversation, and shared values — no photos, no swiping — until the moment feels right. It's how love was always meant to start.</p>
+
+  <div class="hero-cta">
+    <a href="#join">Join the Experiment</a>
+  </div>
+  <p class="hero-note">Free to download · Launching Summer 2026</p>
+</section>
+
+<div class="branch-divider">· · ·</div>
+
+<!-- ══════════ THE EXPERIENCE ══════════ -->
+<section class="sec">
+  <div class="eyebrow">How it works</div>
+  <div class="sec-title">The person you're looking for<br>is <em>already looking for you</em>.</div>
+  <p class="sec-body">Branches walks you through a real dating experience — not an endless scroll. Four stages. Real intention. And a connection that starts where it matters most.</p>
+
+  <div class="exp">
+    <div class="exp-step">
+      <div class="exp-num">1</div>
+      <div class="exp-content">
+        <h3>Your voice goes first</h3>
+        <p>Record a short voice intro — who you are, what matters to you, what you're looking for. No photos. No filters. Just you. Browse others the same way and invite someone whose voice stays with you into a private Pod.</p>
+      </div>
+    </div>
+    <div class="exp-step">
+      <div class="exp-num">2</div>
+      <div class="exp-content">
+        <h3>Get to know them — really</h3>
+        <p>Inside your Pod, it's just the two of you. Talk through voice notes, text, or scheduled virtual dates. Send a gift if they make you smile. There's no rush and no distractions — just space to find out if this is something real.</p>
+      </div>
+    </div>
+    <div class="exp-step">
+      <div class="exp-num">3</div>
+      <div class="exp-content">
+        <h3>The reveal. Then the real date.</h3>
+        <p>When you're both ready, photos are shared. If it feels right, plan your first in-person date right in the app — with built-in safety features so you can focus on the moment, not the worry.</p>
+      </div>
+    </div>
+    <div class="exp-step">
+      <div class="exp-num">4</div>
+      <div class="exp-content">
+        <h3>Let it grow</h3>
+        <p>Your relationship has a home here. As things progress — from talking to dating to something more — your status updates with you. And when you're ready to go off the market, we'll celebrate that too.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="branch-divider">· · ·</div>
+
+<!-- ══════════ SAFETY & TRUST ══════════ -->
+<section class="sec-full">
+  <div class="sec-inner" style="text-align:center">
+    <div class="eyebrow" style="text-align:center">Your safety</div>
+    <div class="sec-title" style="text-align:center">Every in-person date comes<br>with <em>real protection</em>.</div>
+    <p class="sec-body centered">Every member is identity-verified. Military and first responder credentials are confirmed before anyone enters the community.</p>
+    <div class="trust">
+      <div class="trust-item"><span>🚨</span> In-app panic button</div>
+      <div class="trust-item"><span>📍</span> Live location sharing</div>
+      <div class="trust-item"><span>⏰</span> Timed check-ins</div>
+      <div class="trust-item"><span>👥</span> Trusted friend alerts</div>
+      <div class="trust-item"><span>✅</span> Identity verified</div>
+      <div class="trust-item"><span>🔒</span> End-to-end encrypted</div>
+    </div>
+  </div>
+</section>
+
+<div class="branch-divider">· · ·</div>
+
+<!-- ══════════ PRICING ══════════ -->
+<section class="sec" style="text-align:center">
+  <div class="eyebrow" style="text-align:center">Pricing</div>
+  <div class="sec-title" style="text-align:center">Start free. <em>Seriously.</em></div>
+  <p class="sec-body centered">Download the app, create your profile, record your voice intro, and start connecting — no credit card, no catch.</p>
+
+  <div class="price-card">
+    <div class="price-free">Free to Start</div>
+    <div class="price-desc">Profile · Voice Intro · Browse · Match</div>
+    <div class="price-divider"></div>
+    <div class="price-row"><span class="price-amt">$8.99</span><span class="price-per">/month</span></div>
+    <div class="price-when">After your first date or 30 days — whichever comes first</div>
+    <div class="price-list">
+      <div class="pl"><span>✓</span> Unlimited Pod connections</div>
+      <div class="pl"><span>✓</span> Voice &amp; video dates</div>
+      <div class="pl"><span>✓</span> In-app date planning &amp; safety tools</div>
+      <div class="pl"><span>✓</span> Photo reveal &amp; live dates</div>
+      <div class="pl"><span>✓</span> Gifts &amp; relationship milestones</div>
+      <div class="pl"><span>✓</span> Priority matching</div>
+    </div>
+  </div>
+</section>
+
+<div class="branch-divider">· · ·</div>
+
+<!-- ══════════ WHO IT'S FOR ══════════ -->
+<section class="sec-full">
+  <div class="sec-inner" style="text-align:center">
+    <div class="eyebrow" style="text-align:center">Who it's for</div>
+    <div class="sec-title" style="text-align:center">Built for people who are <em>done waiting</em>.</div>
+    <div class="audience-tags">
+      <span class="atag">Active Duty</span><span class="atag">Veterans</span>
+      <span class="atag">Reservists</span><span class="atag">DoD / Cleared Personnel</span>
+      <span class="atag">First Responders</span><span class="atag">Single Parents</span>
+      <span class="atag">Career-Driven Women</span><span class="atag">Men Ready for More</span>
+    </div>
+  </div>
+</section>
+
+<div class="branch-divider">· · ·</div>
+
+<!-- ══════════ SIGNUP FORM ══════════ -->
+<section class="form-sec" id="join">
+  <div class="form-inner">
+    <div class="eyebrow" style="text-align:center">Join the experiment</div>
+    <div class="sec-title" style="text-align:center">Your person might already<br>be <em>on this list</em>.</div>
+    <p class="sec-body centered" style="margin-bottom:0">We're launching this summer. Sign up and we'll let you know the moment you can start connecting.</p>
+
+    <form id="branchesForm" novalidate>
+      <div class="row">
+        <div>
+          <label for="fn">First name</label>
+          <input type="text" id="fn" name="firstName" placeholder="First name" required autocomplete="given-name" maxlength="50">
+        </div>
+        <div>
+          <label for="ln">Last name</label>
+          <input type="text" id="ln" name="lastName" placeholder="Last name" required autocomplete="family-name" maxlength="50">
+        </div>
+      </div>
+      <div>
+        <label for="em">Email</label>
+        <input type="email" id="em" name="email" placeholder="you@email.com" required autocomplete="email" maxlength="100">
+      </div>
+      <div class="row">
+        <div>
+          <label for="gender">I am a...</label>
+          <select id="gender" name="gender" required>
+            <option value="" disabled selected>Select</option>
+            <option value="female">Woman</option>
+            <option value="male">Man</option>
+            <option value="nonbinary">Non-binary</option>
+          </select>
+        </div>
+        <div>
+          <label for="affiliation">My background</label>
+          <select id="affiliation" name="affiliation" required>
+            <option value="" disabled selected>Select</option>
+            <option value="active_duty">Active Duty Military</option>
+            <option value="veteran">Veteran</option>
+            <option value="reservist">Reservist / Guard</option>
+            <option value="dod_cleared">DoD / Cleared Personnel</option>
+            <option value="first_responder">First Responder</option>
+            <option value="military_spouse">Military Spouse</option>
+            <option value="civilian">Civilian</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+      <!-- Honeypot -->
+      <div class="hp" aria-hidden="true"><input type="text" id="website" name="website" tabindex="-1" autocomplete="off"></div>
+      <button type="submit" id="subBtn">Join the Waitlist</button>
+    </form>
+    <div class="f-err" id="fErr"></div>
+
+    <!-- ═══ THANK YOU / CONFIRMATION SCREEN ═══ -->
+    <div class="ty-screen" id="tyScreen">
+      <div class="ty-check">
+        <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+      </div>
+      <h2>Welcome to Branches, <span class="ty-name" id="tyName"></span>.</h2>
+      <p class="ty-body">You're officially on the waitlist. We just sent a confirmation to <strong id="tyEmail"></strong> — check your inbox.</p>
+      <div class="ty-steps">
+        <h4>What happens next</h4>
+        <div class="ty-step"><div class="ty-num">1</div><p>Check your email for a welcome message from Branches</p></div>
+        <div class="ty-step"><div class="ty-num">2</div><p>This summer, you'll get an email with the download link</p></div>
+        <div class="ty-step"><div class="ty-num">3</div><p>Create your voice intro and enter the dating Pods</p></div>
+      </div>
+      <p class="ty-footer">Have friends who'd be a great fit?<br><strong>Share this page with them</strong> — the more people in the experiment, the better your matches.</p>
+    </div>
+
+    <p class="f-note" id="fNote">Your data is stored securely and never shared. No spam.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">Branch<strong>e</strong>s</div>
+  <div class="f-sub">A social dating experiment</div>
+  <div class="f-copy">&copy; 2026 Branches. A <a href="https://nexustechdigitalsolutions.com" target="_blank" rel="noopener noreferrer">Nexus Tech Digital Solutions</a> product.</div>
+</footer>
+
+<!-- ══════════════════════════════════════ -->
+<!-- FIREBASE SDK -->
+<!-- ══════════════════════════════════════ -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getFirestore, collection, addDoc, query, where, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+// ═══ REPLACE WITH YOUR FIREBASE CONFIG ═══
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// ═══ VALIDATION ═══
+function san(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML.trim()}
+function vN(n){
+  const c=san(n);
+  if(!/^[A-Za-zÀ-ÖØ-öø-ÿ'\- ]{2,50}$/.test(c))return{ok:0,e:'Letters only, 2–50 characters.'};
+  if(/(\b(SELECT|INSERT|UPDATE|DELETE|DROP|UNION|ALTER|EXEC|SCRIPT|IFRAME)\b|--|;|<|>|\\)/i.test(n))return{ok:0,e:'Invalid characters.'};
+  return{ok:1,v:c};
+}
+function vE(e){
+  const c=san(e).toLowerCase();
+  if(!/^[a-z0-9](?:[a-z0-9._%+\-]*[a-z0-9])?@[a-z0-9](?:[a-z0-9.\-]*[a-z0-9])?\.[a-z]{2,10}$/.test(c))return{ok:0,e:'Enter a valid email address.'};
+  if(c.length>100)return{ok:0,e:'Email too long.'};
+  const bl=['mailinator.com','guerrillamail.com','tempmail.com','yopmail.com','throwaway.email','sharklasers.com','trashmail.com'];
+  if(bl.includes(c.split('@')[1]))return{ok:0,e:'Please use a permanent email.'};
+  if(/(<|>|;|"|'|\\|\{|\})/i.test(e))return{ok:0,e:'Invalid characters.'};
+  return{ok:1,v:c};
+}
+function vS(v,a){return a.includes(v)}
+
+// ═══ RATE LIMIT ═══
+let sc=0,lt=0;const FL=Date.now();
+function rl(){
+  if(sc>=3)return{ok:0,e:'Too many attempts. Please refresh.'};
+  if(Date.now()-lt<8000)return{ok:0,e:'Please wait a moment.'};
+  return{ok:1};
+}
+
+// ═══ HELPERS ═══
+function err(m){const el=document.getElementById('fErr');el.textContent=m;el.style.display='block';setTimeout(()=>el.style.display='none',5000)}
+function bad(id){const el=document.getElementById(id);el.classList.add('bad');setTimeout(()=>el.classList.remove('bad'),3000)}
+
+function showThankYou(firstName, email, isDuplicate) {
+  const form = document.getElementById('branchesForm');
+  const ty = document.getElementById('tyScreen');
+  const note = document.getElementById('fNote');
+  const formTitle = form.closest('.form-inner');
+
+  // Hide form elements
+  form.style.display = 'none';
+  note.style.display = 'none';
+  // Hide the section title/body above the form
+  formTitle.querySelectorAll('.eyebrow,.sec-title,.sec-body').forEach(el => el.style.display = 'none');
+
+  // Personalize
+  document.getElementById('tyName').textContent = firstName;
+  document.getElementById('tyEmail').textContent = email;
+
+  if (isDuplicate) {
+    ty.querySelector('h2').innerHTML = 'You\'re already on the list, <span class="ty-name">' + firstName + '</span>.';
+    ty.querySelector('.ty-body').innerHTML = 'We already have your info. Sit tight — we\'ll reach out this summer when Branches is ready.';
+  }
+
+  // Show with animation
+  ty.classList.add('show');
+  ty.style.display = 'block';
+
+  // Scroll to top of thank you
+  setTimeout(() => ty.scrollIntoView({ behavior: 'smooth', block: 'center' }), 200);
+}
+
+// ═══ DUPLICATE CHECK ═══
+async function exists(email){
+  try{const q=query(collection(db,'waitlist'),where('email','==',email));const s=await getDocs(q);return!s.empty}catch(e){return false}
+}
+
+// ═══ BREVO CONFIRMATION EMAIL ═══
+// Sends automatic welcome email when someone joins waitlist
+// Set up: https://app.brevo.com → Settings → SMTP & API → API Keys
+async function sendConfirmationEmail(firstName, email) {
+  // ══ REPLACE with your Brevo API key ══
+  // For production: move this to a Firebase Cloud Function
+  const BREVO_API_KEY = 'YOUR_BREVO_API_KEY';
+
+  // Skip if no API key configured yet
+  if (BREVO_API_KEY === 'YOUR_BREVO_API_KEY') {
+    console.log('[Branches] Brevo not configured — skipping confirmation email for:', email);
+    return;
+  }
+
+  try {
+    await fetch('https://api.brevo.com/v3/smtp/email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'api-key': BREVO_API_KEY,
+      },
+      body: JSON.stringify({
+        sender: { name: 'Branches', email: 'hello@branchesdate.app' }, // Change to your verified sender
+        to: [{ email: email, name: firstName }],
+        subject: 'Welcome to Branches, ' + firstName + ' 🌿',
+        htmlContent: `
+          <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;max-width:520px;margin:0 auto;padding:40px 24px;color:#2A2A2A">
+            <h1 style="font-family:Georgia,serif;font-size:24px;font-weight:400;color:#2A2A2A;margin-bottom:8px">
+              Welcome to Branch<span style="color:#C4704B;font-weight:700">e</span>s, ${firstName}.
+            </h1>
+            <p style="font-size:15px;color:#5C5C5C;line-height:1.7;margin-bottom:24px">
+              You're officially on the waitlist for a completely different kind of dating experience — one where emotional connection comes first.
+            </p>
+            <div style="background:#FFF8F0;border-radius:12px;padding:20px 24px;margin-bottom:24px">
+              <p style="font-size:13px;font-weight:600;color:#2A2A2A;margin-bottom:12px">What happens next:</p>
+              <p style="font-size:14px;color:#5C5C5C;line-height:1.7;margin:0">
+                <strong style="color:#C4704B">1.</strong> We're building Branches right now<br>
+                <strong style="color:#C4704B">2.</strong> This summer, you'll get an email with the download link<br>
+                <strong style="color:#C4704B">3.</strong> Create your voice intro, enter the Pods, and start connecting
+              </p>
+            </div>
+            <p style="font-size:14px;color:#5C5C5C;line-height:1.7">
+              In the meantime, share this page with anyone you think would be a great fit. The more people in the experiment, the better the matches.
+            </p>
+            <hr style="border:none;border-top:1px solid #F3ECE2;margin:24px 0">
+            <p style="font-size:12px;color:#B0B0B0;text-align:center">
+              Branch<span style="color:#C4704B;font-weight:700">e</span>s · A social dating experiment<br>
+              A Nexus Tech Digital Solutions product
+            </p>
+          </div>
+        `,
+      }),
+    });
+    console.log('[Branches] Confirmation email sent to:', email);
+  } catch (e) {
+    console.warn('[Branches] Email send failed:', e.message);
+    // Non-blocking — signup still succeeds even if email fails
+  }
+}
+
+// ═══ FORM HANDLER ═══
+const genders=['female','male','nonbinary'];
+const affs=['active_duty','veteran','reservist','dod_cleared','first_responder','military_spouse','civilian','other'];
+
+document.getElementById('branchesForm').addEventListener('submit',async function(e){
+  e.preventDefault();
+  document.getElementById('fErr').style.display='none';
+
+  // Honeypot
+  if(document.getElementById('website').value){showThankYou('Friend','your inbox',false);return}
+  // Bot timing
+  if(Date.now()-FL<2500){showThankYou('Friend','your inbox',false);return}
+  // Rate limit
+  const r=rl();if(!r.ok){err(r.e);return}
+
+  // Validate all fields
+  const fn=vN(document.getElementById('fn').value);if(!fn.ok){err(fn.e);bad('fn');return}
+  const ln=vN(document.getElementById('ln').value);if(!ln.ok){err(ln.e);bad('ln');return}
+  const em=vE(document.getElementById('em').value);if(!em.ok){err(em.e);bad('em');return}
+  const gen=document.getElementById('gender').value;if(!vS(gen,genders)){err('Please select an option.');bad('gender');return}
+  const aff=document.getElementById('affiliation').value;if(!vS(aff,affs)){err('Please select an option.');bad('affiliation');return}
+
+  const btn=document.getElementById('subBtn');btn.disabled=true;btn.textContent='Joining...';
+
+  try{
+    // Check if email already exists
+    const dup=await exists(em.v);
+    if(dup){
+      showThankYou(fn.v, em.v, true);
+      return;
+    }
+
+    // Save to Firestore
+    await addDoc(collection(db,'waitlist'),{
+      firstName:fn.v,lastName:ln.v,email:em.v,
+      gender:gen,affiliation:aff,
+      source:'landing_page',
+      createdAt:serverTimestamp(),
+      invited:false,invitedAt:null,
+    });
+
+    sc++;lt=Date.now();
+
+    // Show thank you screen
+    showThankYou(fn.v, em.v, false);
+
+    // Send confirmation email via Brevo (non-blocking)
+    sendConfirmationEmail(fn.v, em.v);
+
+  }catch(error){
+    console.error('Signup error:',error);
+    // Fallback: save locally if Firebase is down
+    const wl=JSON.parse(localStorage.getItem('branches_wl')||'[]');
+    wl.push({firstName:fn.v,lastName:ln.v,email:em.v,gender:gen,affiliation:aff,ts:new Date().toISOString()});
+    localStorage.setItem('branches_wl',JSON.stringify(wl));
+    showThankYou(fn.v, em.v, false);
+  }
+});
+
+// ═══ SCROLL ANIMATIONS ═══
+const obs=new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}})},{threshold:.1});
+document.querySelectorAll('.exp-step,.trust-item,.price-card,.atag').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(16px)';el.style.transition='all .5s ease';obs.observe(el)});
+</script>
+</body>
+</html>
