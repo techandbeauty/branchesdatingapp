@@ -298,6 +298,63 @@ nav{
 .hp{position:absolute;left:-9999px;opacity:0;height:0;width:0;overflow:hidden}
 
 /* ═══════════════════════════════ */
+/* VIDEO MODAL                      */
+/* ═══════════════════════════════ */
+.video-modal{
+  position:fixed;inset:0;z-index:1000;
+  background:rgba(0,0,0,0.92);
+  display:none;
+  align-items:center;justify-content:center;
+  padding:2rem;
+  opacity:0;transition:opacity .4s ease;
+}
+.video-modal.show{display:flex;opacity:1}
+.video-modal-close{
+  position:absolute;top:2rem;right:2rem;
+  width:44px;height:44px;border-radius:50%;
+  border:1px solid var(--cream);background:transparent;
+  color:var(--cream);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;font-family:var(--sans);
+  transition:all .3s;
+}
+.video-modal-close:hover{background:var(--cream);color:var(--bg)}
+.video-modal-content{
+  width:100%;max-width:960px;
+  aspect-ratio:16/9;
+  border-radius:12px;overflow:hidden;
+  background:var(--bg2);
+  box-shadow:0 40px 120px rgba(0,0,0,0.8);
+  position:relative;
+}
+.video-modal-content video,
+.video-modal-content iframe{
+  width:100%;height:100%;display:block;
+  border:none;
+}
+.video-modal-placeholder{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:3rem;
+  background:
+    radial-gradient(ellipse at center,rgba(80,50,40,0.3),transparent 70%),
+    linear-gradient(180deg,#14100C 0%,#0A0806 100%);
+}
+.video-modal-placeholder h3{
+  font-family:var(--serif);font-size:2rem;font-weight:500;
+  color:var(--cream);margin-bottom:.8rem;font-style:italic;
+}
+.video-modal-placeholder p{
+  font-size:.9rem;color:var(--cream-dim);line-height:1.7;
+  max-width:400px;font-weight:300;
+}
+.video-modal-placeholder .pl-script{
+  font-family:var(--script);font-size:1.4rem;
+  color:var(--gold);margin-top:1rem;
+}
+
+/* ═══════════════════════════════ */
 /* FOOTER                           */
 /* ═══════════════════════════════ */
 footer{
@@ -358,13 +415,15 @@ footer{
 
 <section class="hero">
   <!-- ═══ BACKGROUND VIDEO ═══
-       To add your Cloudinary video, paste the URL in the src attribute below.
-       Format: https://res.cloudinary.com/YOUR_CLOUD_NAME/video/upload/YOUR_VIDEO.mp4
+       Currently using a free Coverr stock clip (royalty-free, commercial use OK).
+       PLACEHOLDER — replace with your Cloudinary video of a military couple when ready.
+       See README.md for Cloudinary upload instructions.
   ═══ -->
   <div class="hero-bg">
     <video id="heroVideo" autoplay muted loop playsinline preload="auto">
-      <!-- PASTE YOUR CLOUDINARY VIDEO URL HERE -->
-      <!-- <source src="https://res.cloudinary.com/YOUR_CLOUD/video/upload/YOUR_VIDEO.mp4" type="video/mp4"> -->
+      <source src="https://cdn.coverr.co/videos/coverr-a-loving-couple-holding-hands-1404/1080p.mp4" type="video/mp4">
+      <source src="https://cdn.coverr.co/videos/coverr-a-loving-couple-holding-hands-1404/720p.mp4" type="video/mp4">
+      <source src="https://cdn.coverr.co/videos/coverr-a-loving-couple-holding-hands-1404/360p.mp4" type="video/mp4">
     </video>
   </div>
   <div class="hero-overlay"></div>
@@ -392,12 +451,12 @@ footer{
         A new kind of dating.<br>
         Built for real connection.
       </p>
-      <p class="hero-script">Coming this Mothers Day</p>
+      <p class="hero-script">Coming Soon</p>
     </div>
 
     <div class="hero-right">
-      <p>Branches is more than<br>a dating app. It's an Experience.</p>
-      <a href="#" class="watch-film">
+      <p>Branches is more than<br>an app. It's a movement.</p>
+      <a href="#" class="watch-film" id="watchFilmBtn">
         <span class="play-btn">
           <svg viewBox="0 0 10 12"><path d="M0 0 L10 6 L0 12 Z"/></svg>
         </span>
@@ -409,7 +468,6 @@ footer{
   <!-- ═══ WAITLIST CARD ═══ -->
   <div class="waitlist-wrap" id="waitlist">
     <div class="waitlist">
-
       <!-- Default form view -->
       <div id="formView">
         <h2>Be the first to know.</h2>
@@ -444,8 +502,8 @@ footer{
         <div class="ty-next">
           <div class="ty-next-title">What happens next</div>
           <div class="ty-step"><div class="ty-num">1</div><p>Check your inbox for a welcome message from Branches</p></div>
-          <div class="ty-step"><div class="ty-num">2</div><p>Next month, you'll get the download link the moment we go live for testing</p></div>
-          <div class="ty-step"><div class="ty-num">3</div><p>Create your voice intro about you and step into your first dating connection</p></div>
+          <div class="ty-step"><div class="ty-num">2</div><p>This summer, you'll get the download link the moment we go live</p></div>
+          <div class="ty-step"><div class="ty-num">3</div><p>Create your voice intro and step into your first connection</p></div>
         </div>
 
         <p class="ty-script">See you soon.</p>
@@ -457,7 +515,7 @@ footer{
 <!-- ═══ FOOTER ═══ -->
 <footer>
   <div class="footer-logo">Branches</div>
-  <div class="footer-tagline">Built with love. Rooted in intention. Made for you.</div>
+  <div class="footer-tagline">Built on intention. Rooted in reality. Made for you.</div>
   <div class="footer-social">
     <a href="#" aria-label="Instagram">
       <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2M12 0C8.7 0 8.3 0 7.1.1c-1.3.1-2.1.3-2.9.6-.8.3-1.5.7-2.1 1.4C1.4 2.7 1 3.4.7 4.2.4 5 .2 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.1.6 2.9.3.8.7 1.5 1.4 2.1.6.6 1.3 1.1 2.1 1.4.8.3 1.6.5 2.9.6 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c1.3-.1 2.1-.3 2.9-.6.8-.3 1.5-.7 2.1-1.4.6-.6 1.1-1.3 1.4-2.1.3-.8.5-1.6.6-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.1-.6-2.9-.3-.8-.7-1.5-1.4-2.1C21.3 1.4 20.6 1 19.8.7 19 .4 18.2.2 16.9.1 15.7 0 15.3 0 12 0zm0 5.8c-3.4 0-6.2 2.8-6.2 6.2s2.8 6.2 6.2 6.2 6.2-2.8 6.2-6.2S15.4 5.8 12 5.8zm0 10.2c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4zm7.8-10.4c0 .8-.6 1.4-1.4 1.4s-1.4-.6-1.4-1.4.6-1.4 1.4-1.4 1.4.6 1.4 1.4z"/></svg>
@@ -470,6 +528,24 @@ footer{
     </a>
   </div>
 </footer>
+
+<!-- ═══ VIDEO MODAL ═══ -->
+<div class="video-modal" id="videoModal" role="dialog" aria-label="Branches film">
+  <button class="video-modal-close" id="videoModalClose" aria-label="Close video">✕</button>
+  <div class="video-modal-content">
+    <!-- Placeholder shown when no brand film URL is set -->
+    <div class="video-modal-placeholder" id="videoPlaceholder">
+      <h3>Our film is on the way.</h3>
+      <p>We're putting the finishing touches on our launch film — a glimpse into the kind of love Branches is built for. Check back soon.</p>
+      <p class="pl-script">Coming Summer 2026</p>
+    </div>
+    <!-- When you have a brand film, replace the placeholder above with a video element:
+    <video controls autoplay>
+      <source src="https://res.cloudinary.com/YOUR_CLOUD/video/upload/branches_film.mp4" type="video/mp4">
+    </video>
+    -->
+  </div>
+</div>
 
 <!-- ═══════════════════════════════════════ -->
 <!-- FIREBASE + FORM LOGIC                    -->
@@ -495,6 +571,37 @@ const video = document.getElementById('heroVideo');
 if (video) {
   video.addEventListener('loadeddata', () => video.classList.add('loaded'));
 }
+
+// ═══ VIDEO MODAL (Watch the Film) ═══
+const watchBtn = document.getElementById('watchFilmBtn');
+const videoModal = document.getElementById('videoModal');
+const videoModalClose = document.getElementById('videoModalClose');
+
+function openVideoModal(e) {
+  if (e) e.preventDefault();
+  videoModal.classList.add('show');
+  document.body.style.overflow = 'hidden';
+  // Auto-play if there's a video element in the modal
+  const modalVideo = videoModal.querySelector('video');
+  if (modalVideo) modalVideo.play().catch(() => {});
+}
+
+function closeVideoModal() {
+  videoModal.classList.remove('show');
+  document.body.style.overflow = '';
+  // Pause video when closing
+  const modalVideo = videoModal.querySelector('video');
+  if (modalVideo) modalVideo.pause();
+}
+
+watchBtn.addEventListener('click', openVideoModal);
+videoModalClose.addEventListener('click', closeVideoModal);
+videoModal.addEventListener('click', (e) => {
+  if (e.target === videoModal) closeVideoModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && videoModal.classList.contains('show')) closeVideoModal();
+});
 
 // ═══ VALIDATION ═══
 function san(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML.trim()}
